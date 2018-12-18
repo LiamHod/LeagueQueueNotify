@@ -36,24 +36,30 @@ def grab_screen(coordinates):
 
 def detect_queue(cur_img):
     """Used OpenCV to detect if the queue has popped in the image"""
-    template = cv2.imread('templateimages\\reg_queue.png', 0)
-    # w, h = template.shape[::-1]
+    template = cv2.imread('templateimages\\winter_queue.png', 0)
+    w, h = template.shape[::-1]
     method = 'cv2.TM_CCOEFF_NORMED'
     grey_img = cv2.cvtColor(cur_img, cv2.COLOR_BGR2GRAY)
     print(type(grey_img), type(template), type(method))
     res = cv2.matchTemplate(grey_img, template, cv2.TM_CCOEFF_NORMED)
-    # min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-    # top_left = max_loc
-    # bottom_right = (top_left[0] + w, top_left[1] + h)
+    threshold = 0.8
+    lol_loc = np.where(res >= threshold)
+    for pt in zip(*lol_loc[::-1]):
+        cv2.rectangle(cur_img, pt, (pt[0]+ w, pt[1] + h), (0, 225, 255), 2)
+    cv2.imshow('Detected', cur_img)
+    cv2.waitKey(0)
+#     min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+#     top_left = max_loc
+#     bottom_right = (top_left[0] + w, top_left[1] + h)
 
-    # cv2.rectangle(cur_img, top_left, bottom_right, 255, 2)
+#     cv2.rectangle(cur_img, top_left, bottom_right, 255, 2)
 
-    # plt.subplot(121), plt.imshow(res, cmap='gray')
-    # plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
-    # plt.subplot(122), plt.imshow(cur_img, cmap='gray')
-    # plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
-    # plt.suptitle(method)
+#     plt.subplot(121), plt.imshow(res, cmap='gray')
+#     plt.title('Matching Result'), plt.xticks([]), plt.yticks([])
+#     plt.subplot(122), plt.imshow(cur_img, cmap='gray')
+#     plt.title('Detected Point'), plt.xticks([]), plt.yticks([])
+#     plt.suptitle(method)
 
-    # plt.show()
+#     plt.show()
 
 window_location()
