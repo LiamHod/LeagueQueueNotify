@@ -14,4 +14,4 @@ def get_video(video_name):
     cv2.destroyAllWindows()
 
 if __name__ == '__main__':
-    get_video("tools\\queuevideo.mp4")
+    get_video("queuevideo.mp4")

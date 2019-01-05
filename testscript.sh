@@ -1,4 +1,4 @@
 #!/bin/bash
 
-python queuepop.py &
+python tools/queuepop.py &
 python main.py &

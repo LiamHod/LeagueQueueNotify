@@ -27,19 +27,18 @@ def grab_screen(coordinates):
         league_img = np.array(sct.grab(coordinates))
         return league_img
 
-def detect_queue(cur_img):
+def detect_queue(cur_img, template_path, threshold):
     """Used OpenCV to detect if the queue has popped in the image"""
-    template = cv2.imread('templateimages\\winter_queue.png', 0)
+    try:
+        template = cv2.imread(template_path, 0)
+    except cv2.error:
+        print('Incorrect file path for template image')
     # template = cv2.imread('templateimages\\reg_queue.png', 0)
-    w, h = template.shape[::-1]
+    #w, h = template.shape[::-1]
     grey_img = cv2.cvtColor(cur_img, cv2.COLOR_BGR2GRAY)
     res = cv2.matchTemplate(grey_img, template, cv2.TM_CCOEFF_NORMED)
-    threshold = 0.6
     lol_loc = np.where(res >= threshold)
-    if lol_loc[0].any():
-        return True
-    else:
-        return False
+    return bool(lol_loc[0].any())
     """Used this part to print rectangle around detected image"""
     # for pt in zip(*lol_loc[::-1]):
     #     if pt:
