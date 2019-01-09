@@ -58,15 +58,6 @@ def start_systray():
     icon = "icons/sync.ico"
     checkmark_icon = "icons/checkmark.ico"
     hover_text = "League Queue Notify"
-    reg_menu = (('Change queue image', None, (('Regular queue', checkmark_icon, change_queue_reg),
-                                              ('Winter queue', None, change_queue_win),
-                                              ('Custom queue...', None, change_queue_cust))),)
-    win_menu = (('Change queue image', None, (('Regular queue', None, change_queue_reg),
-                                          ('Winter queue', checkmark_icon, change_queue_win),
-                                          ('Custom queue...', None, change_queue_cust))),)
-    cust_menu = (('Change queue image', None, (('Regular queue', None, change_queue_reg),
-                                           ('Winter queue', None, change_queue_win),
-                                           ('Custom queue...', checkmark_icon, change_queue_cust))),)
 
     def quit_app(sysTrayIcon):
         print("Bye")
@@ -85,6 +76,16 @@ def start_systray():
         menu_options = cust_menu
         sysTrayIcon.update(menu_options=menu_options)
         get_custom_file()
+    
+    reg_menu = (('Change queue image', None, (('Regular queue', checkmark_icon, change_queue_reg),
+                                              ('Winter queue', None, change_queue_win),
+                                              ('Custom queue...', None, change_queue_cust))),)
+    win_menu = (('Change queue image', None, (('Regular queue', None, change_queue_reg),
+                                              ('Winter queue', checkmark_icon, change_queue_win),
+                                              ('Custom queue...', None, change_queue_cust))),)
+    cust_menu = (('Change queue image', None, (('Regular queue', None, change_queue_reg),
+                                               ('Winter queue', None, change_queue_win),
+                                               ('Custom queue...', checkmark_icon, change_queue_cust))),)
 
     menu_options = load_menu_choice(reg_menu, win_menu, cust_menu)
 
